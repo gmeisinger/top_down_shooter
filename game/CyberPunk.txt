@@ -1,0 +1,34 @@
+core gameplay
+	- on foot / small vehicles
+	- guns
+	- top-down (maybe a gungeon perspective)
+	- cover system?
+	- cyber-punk setting, lots of people/activity
+	- technology, hacking, stealth
+	- mods for everything
+		- your guns
+		- your ships
+		- yourself
+additional open-world features
+	- eventually obtain fighter pilot training
+	- sign on with a larger ship, fly missions for them
+		- travel to new planets/stations
+		- could involve larger battles, with 2 or more large ships and several fighters on each side
+		- portions of on-foot combat (taking an enemy ship?)
+	- eventually obtain a larger ship
+		- hire pilots
+		- transport, attack, defend, role-play
+		
+		
+Space combat
+	- flagship vs flagship
+		- flagships will be positioned at each end of the field
+			- they will seem like "goals"
+		- each flagship is charging its super weapon, which is vulnerable to the fighters
+		- win condition: fighters must destroy the enemy super-weapon, or charge their own first
+	- fighters
+		- will fill different roles: attack, defense, control, etc
+	- other game modes
+		- good ol elimination
+		- control
+		- could add reasons to play interesting ships/mods

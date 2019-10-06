@@ -1,0 +1,64 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://assets/images/effects/plain_background.png" type="Texture" id=1]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+
+uniform vec4 fog_color : hint_color; // Does not use alphas 
+uniform int octaves;
+uniform float uv_scale : hint_range(1.0, 100.0);
+uniform float speed : hint_range(0.0, 1000.0);
+
+float rand(vec2 coord){
+	return fract(sin(dot(coord, vec2(56, 78)) * 500.0) * 500.0);
+}
+
+float noise(vec2 coord){
+	vec2 i = floor(coord);
+	vec2 f = fract(coord);
+
+	// 4 corners of a rectangle surrounding our point
+	float a = rand(i);
+	float b = rand(i + vec2(1.0, 0.0));
+	float c = rand(i + vec2(0.0, 1.0));
+	float d = rand(i + vec2(1.0, 1.0));
+	
+	vec2 cubic = f * f * (3.0 - 2.0 * f);
+	return mix(a, b, cubic.x) + (c - a) * cubic.y * (1.0 - cubic.x) + (d - b) * cubic.x * cubic.y;
+//	return mix(a, b, f.x) + (c - a) * f.y * (1.0 - f.x) + (d - b) * f.x * f.y;
+
+}
+float fbm(vec2 coord){
+	float value = 0.0;
+	float scale = 0.5;
+
+	for(int i = 0; i < octaves; i++){
+		value += noise(coord) * scale;
+		coord *= 2.0;
+		scale *= 0.5;
+	}
+	return value;
+}
+
+void fragment() {
+	vec2 coord = UV * uv_scale;
+
+	vec2 motion = vec2( fbm(coord + vec2(TIME * -speed, TIME * speed)) );
+
+	float final = fbm(coord + motion);
+
+	COLOR = vec4(fog_color.rgb, final * 0.5);
+}"
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
+shader_param/fog_color = Color( 0.0352941, 0.345098, 0, 1 )
+shader_param/octaves = 14
+shader_param/uv_scale = 34.129
+shader_param/speed = 0.4
+
+[node name="fog" type="Sprite"]
+material = SubResource( 2 )
+texture = ExtResource( 1 )
